@@ -1,0 +1,9 @@
+## Interface: 30300
+## Title: |cff33ff99GoldDiggers |r
+## Notes: A Gold Manager for raid boosters from |cff996019warmane|r-Icecrown.
+## Author: Thoric
+## Version: 0.1b
+# DefaultState: enabled
+
+embeds.xml
+Templates.xml
