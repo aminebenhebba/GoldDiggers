@@ -2,7 +2,7 @@
 ..\FrameXML\UI.xsd">
 
 	<!-- Main Frame -->
-    <Frame name="GDFrameTemplate" inherits="UIPanelDialogTemplate" parent="UIParent" movable="true" virtual="true">
+    <Frame name="GDRaidToolsFrame" inherits="UIPanelDialogTemplate" parent="UIParent" movable="true" frameStrata="MEDIUM" toplevel="true" hidden="true" clampedToScreen="true" virtual="true">
         <Size><AbsDimension x="800" y="400" /></Size>
 		<Anchors>
 			<Anchor point="CENTER">
@@ -12,7 +12,7 @@
 
 		<Layers>
 			<Layer level="ARTWORK">
-				<FontString inherits="GameFontNormalSmall" name="$parentTitle" text="|cff00cc66 GD|r Raid Tools">
+				<FontString inherits="GameFontNormalSmall" name="$parentTitle" text="|cff00cc66 Gold Diggers :|r Raid Tools">
 					<Anchors>
 						<Anchor point="LEFT" relativeTo="$parentTitleBG" relativePoint="LEFT">
 							<Offset><AbsDimension x="5" y="1" /></Offset>
@@ -22,9 +22,264 @@
 			</Layer>
 		</Layers>
 
+		<Frames>
+			<!-- Left Section -->
+			<Frame name="$parentLeftSection">
+				<Size x="295" y="375"/>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="7" y="-22"/>
+				</Anchors>
+				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" tile="true">
+            		<BackgroundInsets>
+                		<AbsInset left="5" right="5" top="5" bottom="5"/>
+            		</BackgroundInsets>
+        		</Backdrop>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString name="$parentLeftText" inherits="GameFontNormalSmall" text="Left Side Content" justifyH="CENTER">
+							<Anchors>
+								<Anchor point="TOP"/>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+			</Frame>
+
+			<!-- Right Section -->
+			<Frame name="$parentRightSection">
+				<Size x="500" y="375"/>
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-2" y="-22"/>
+				</Anchors>
+				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" tile="true">
+            		<BackgroundInsets>
+                		<AbsInset left="5" right="5" top="5" bottom="5"/>
+            		</BackgroundInsets>
+        		</Backdrop>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString name="$parentLeftText" inherits="GameFontNormalSmall" text="Right Side Content" justifyH="CENTER">
+							<Anchors>
+								<Anchor point="TOP"/>
+							</Anchors>
+						</FontString>
+						<!-- Raid Roster Header -->
+						<FontString name="$parentRaidRosterHeader" inherits="GameFontNormal" text="Raid Roster">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="$parent" x="10" y="-15"/>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<!-- Raid Roster Filter -->
+					<EditBox name="$parentRaidRosterFilter" inherits="GDEditBoxFilterTemplate">
+						<Size x="200" y="20"/>
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativeTo="$parent" x="-12" y="-15"/>
+						</Anchors>
+					</EditBox>
+					<!-- Raid Roster Table Headers -->
+					<Button name="$parentColumnHeaderId" inherits="GDColumnHeaderTemplate" text="#">
+						<Size><AbsDimension x="30" y="19"/></Size>
+						<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="$parent" x="10" y="-40"/>
+						</Anchors>
+					</Button>
+					<Button name="$parentColumnHeaderClass" inherits="GDColumnHeaderTemplate" text="Class">
+						<Size><AbsDimension x="50" y="19"/></Size>
+						<Anchors>
+								<Anchor point="LEFT" relativeTo="$parentColumnHeaderId" relativePoint="RIGHT"/>
+						</Anchors>
+					</Button>
+					<Button name="$parentColumnHeaderMember" inherits="GDColumnHeaderTemplate" text="Member">
+						<Size><AbsDimension x="140" y="19"/></Size>
+						<Anchors>
+								<Anchor point="LEFT" relativeTo="$parentColumnHeaderClass" relativePoint="RIGHT"/>
+						</Anchors>
+					</Button>
+					<Button name="$parentColumnHeaderRole" inherits="GDColumnHeaderTemplate" text="Role">
+						<Size><AbsDimension x="110" y="19"/></Size>
+						<Anchors>
+								<Anchor point="LEFT" relativeTo="$parentColumnHeaderMember" relativePoint="RIGHT"/>
+						</Anchors>
+					</Button>
+					<Button name="$parentColumnHeaderGoldCut" inherits="GDColumnHeaderTemplate" text="Gold Cut">
+						<Size><AbsDimension x="150" y="19"/></Size>
+						<Anchors>
+								<Anchor point="LEFT" relativeTo="$parentColumnHeaderRole" relativePoint="RIGHT"/>
+						</Anchors>
+					</Button>
+					<!-- Raid Roster Table Rows Examples -->
+					<Button name="$parentRaidRosterRow1" inherits="GDRaidRosterRowTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parentColumnHeaderId" relativePoint="BOTTOMLEFT"/>
+						</Anchors>
+					</Button>
+					<Button name="$parentRaidRosterRow2" inherits="GDRaidRosterRowTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parentRaidRosterRow1" relativePoint="BOTTOMLEFT"/>
+						</Anchors>
+					</Button>
+					<Button name="$parentRaidRosterRow3" inherits="GDRaidRosterRowTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parentRaidRosterRow2" relativePoint="BOTTOMLEFT"/>
+						</Anchors>
+					</Button>
+				</Frames>
+			</Frame>
+		</Frames>
+
 		<Scripts>
 			<OnDragStart>self:StartMoving()</OnDragStart>
 			<OnDragStop>self:StopMovingOrSizing()</OnDragStop>
 		</Scripts>
     </Frame>
+
+	<!-- Filter EdtiBox Template -->
+	<EditBox name="GDEditBoxFilterTemplate" inherits="InputBoxTemplate" autoFocus="false" virtual="true">
+		<FontString inherits="GameFontHighlight" />
+		<Layers>
+			<Layer level="BACKGROUND">
+				<FontString parentKey="SearchPlaceHolder" inherits="GameFontNormalSmall" text="Search ...">
+					<Anchors><Anchor point="LEFT"/></Anchors>
+					<Color r="0.5" g="0.5" b="0.5" a="1" />
+				</FontString>
+				<Texture file="Interface\COMMON\UI-Searchbox-Icon">
+					<Anchors>
+						<Anchor point="RIGHT">
+							<Offset><AbsDimension x="-1" y="-1" /></Offset>
+						</Anchor>
+					</Anchors>
+					<Color r="0.5" g="0.5" b="0.5" a="1" />
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnEscapePressed>self:ClearFocus()</OnEscapePressed>
+			<OnEditFocusGained>self.SearchPlaceHolder:Hide()</OnEditFocusGained>
+			<OnEditFocusLost>if self:GetText()=="" then	self.SearchPlaceHolder:Show() end</OnEditFocusLost>
+		</Scripts>
+	</EditBox>
+
+	<!-- Column header template -->
+	<Button name="GDColumnHeaderTemplate" virtual="true">
+		<Size><AbsDimension x="10" y="19" /></Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentLeft" file="Interface\FriendsFrame\WhoFrame-ColumnTabs">
+					<Size><AbsDimension x="5" y="19" /></Size>
+					<Anchors><Anchor point="TOPLEFT"/></Anchors>
+					<TexCoords left="0" right="0.078125" top="0" bottom="0.59375"/>
+				</Texture>
+				<Texture name="$parentRight" file="Interface\FriendsFrame\WhoFrame-ColumnTabs">
+					<Size><AbsDimension x="4" y="19" /></Size>
+					<Anchors><Anchor point="TOPRIGHT" /></Anchors>
+					<TexCoords left="0.90625" right="0.96875" top="0" bottom="0.59375"/>
+				</Texture>
+				<Texture name="$parentMiddle" file="Interface\FriendsFrame\WhoFrame-ColumnTabs">
+					<Size><AbsDimension x="10" y="19" /></Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT"/>
+						<Anchor point="RIGHT" relativeTo="$parentRight" relativePoint="LEFT"/>
+					</Anchors>
+					<TexCoords left="0.078125" right="0.90625" top="0" bottom="0.59375"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<ButtonText name="$parentText">
+			<Anchors>
+				<Anchor point="LEFT">
+					<Offset><AbsDimension x="8" y="0" /></Offset>
+				</Anchor>
+			</Anchors>
+		</ButtonText>
+		<NormalFont style="GameFontNormalSmall"  />
+		<HighlightTexture file="Interface\PaperDollInfoFrame\UI-Character-Tab-Highlight-yellow" alphaMode="ADD">
+			<Size><AbsDimension x="5" y="24" /></Size>
+			<Anchors>
+				<Anchor point="LEFT">
+					<Offset><AbsDimension x="0" y="0" /></Offset>
+				</Anchor>
+				<Anchor point="RIGHT">
+					<Offset><AbsDimension x="4" y="0" /></Offset>
+				</Anchor>
+			</Anchors>
+		</HighlightTexture>
+	</Button>
+
+	<!-- Raid Roster Row Template -->
+	<Button name="GDRaidRosterRowTemplate" virtual="true">
+		<Size><AbsDimension y="20" /></Size>
+		<NormalFont style="GameFontNormalSmall" />
+		<DisabledFont style="GameFontDisableSmall" />
+		<HighlightFont style="GameFontHighlightSmall" />
+		<Anchors>
+			<Anchor point="LEFT">
+				<Offset><AbsDimension x="5" y="0" /></Offset>
+			</Anchor>
+			<Anchor point="RIGHT">
+				<Offset><AbsDimension x="-5" y="0" /></Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\AuctionFrame\UI-AuctionItemNameFrame">
+					<Size><AbsDimension x="10" y="22" /></Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset><AbsDimension x="0" y="0" /></Offset>
+						</Anchor>
+						<Anchor point="BOTTOMRIGHT">
+							<Offset><AbsDimension x="0" y="-2" /></Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords top="0" right="0.75" bottom="0.75" left="0.078125" />
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<FontString name="$parentID" font="GameFontNormalSmall" justifyH="LEFT" justifyV="MIDDLE" text="ID">
+					<Size><AbsDimension x="30" y="18" /></Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset><AbsDimension x="8" y="-1" /></Offset>
+						</Anchor>
+					</Anchors>
+					<backgroundColor r="1" g="0" b="0" a="1" />
+				</FontString>
+				<FontString name="$parentClass" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="MIDDLE" text="Class">
+					<Size><AbsDimension x="50" y="18" /></Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentID" relativePoint="TOPRIGHT"/>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentMember" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="MIDDLE" text="Member">
+					<Size><AbsDimension x="140" y="18" /></Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentClass" relativePoint="TOPRIGHT"/>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentRole" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="MIDDLE" text="Role">
+					<Size><AbsDimension x="110" y="18" /></Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentMember" relativePoint="TOPRIGHT"/>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentGoldCut" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="MIDDLE" text="Gold Cut">
+					<Size><AbsDimension x="150" y="18" /></Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentRole" relativePoint="TOPRIGHT"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<HighlightTexture>
+			<Anchors>
+				<Anchor point="TOPLEFT" />
+				<Anchor point="BOTTOMRIGHT" />
+			</Anchors>
+			<Color r="1" g="0.8" b="0" a="0.1" />
+		</HighlightTexture>
+		<Scripts><OnClick></OnClick></Scripts>
+	</Button>
 </Ui>

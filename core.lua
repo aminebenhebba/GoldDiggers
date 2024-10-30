@@ -102,14 +102,18 @@ end
 
 function Config:Toggle()
     local menu = UIConfig or Config:CreateMenu()
-    menu:SetShown(not menu:IsShown());
+    if menu:IsShown() then
+        menu:Hide()
+    else
+        menu:Show()
+    end
 end
 
 --------------------------------------------------------------------------
 -- Slash Commands
 --------------------------------------------------------------------------
 function Config:CreateMenu()
-    UIConfig = CreateFrame("Frame", "GoldDiggersMenu", UIParent, "GDFrameTemplate")
+    UIConfig = CreateFrame("Frame", "GoldDiggersMenu", UIParent, "GDRaidToolsFrame")
     UIConfig:SetPoint("CENTER", UIParent, "CENTER")
     UIConfig:Hide()
     return UIConfig
