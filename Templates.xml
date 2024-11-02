@@ -24,7 +24,7 @@
 
 		<Frames>
 			<!-- Left Section -->
-			<Frame name="$parentLeftSection">
+			<Frame name="$parentSessions">
 				<Size x="295" y="375"/>
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="7" y="-22"/>
@@ -36,7 +36,7 @@
         		</Backdrop>
 				<Layers>
 					<Layer level="ARTWORK">
-						<FontString name="$parentLeftText" inherits="GameFontNormalSmall" text="Left Side Content" justifyH="CENTER">
+						<FontString inherits="GameFontNormalSmall" text="Left Side Content" justifyH="CENTER">
 							<Anchors>
 								<Anchor point="TOP"/>
 							</Anchors>
@@ -46,7 +46,7 @@
 			</Frame>
 
 			<!-- Right Section -->
-			<Frame name="$parentRightSection">
+			<Frame name="$parentRaidRoster">
 				<Size x="500" y="375"/>
 				<Anchors>
 					<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-2" y="-22"/>
@@ -58,23 +58,23 @@
         		</Backdrop>
 				<Layers>
 					<Layer level="ARTWORK">
-						<FontString name="$parentLeftText" inherits="GameFontNormalSmall" text="Right Side Content" justifyH="CENTER">
+						<FontString inherits="GameFontNormalSmall" text="Right Side Content" justifyH="CENTER">
 							<Anchors>
 								<Anchor point="TOP"/>
 							</Anchors>
 						</FontString>
 						<!-- Raid Roster Header -->
-						<FontString name="$parentRaidRosterHeader" inherits="GameFontNormal" text="Raid Roster">
+						<FontString name="$parentHeader" inherits="GameFontNormal" text="Raid Roster">
 							<Anchors>
-								<Anchor point="TOPLEFT" relativeTo="$parent" x="10" y="-15"/>
+								<Anchor point="TOPLEFT" relativeTo="$parent" x="10" y="-20"/>
 							</Anchors>
 						</FontString>
 					</Layer>
 				</Layers>
 				<Frames>
 					<!-- Raid Roster Filter -->
-					<EditBox name="$parentRaidRosterFilter" inherits="GDEditBoxFilterTemplate">
-						<Size x="200" y="20"/>
+					<EditBox name="$parentFilter" inherits="GDEditBoxFilterTemplate">
+						<Size x="240" y="20"/>
 						<Anchors>
 							<Anchor point="TOPRIGHT" relativeTo="$parent" x="-12" y="-15"/>
 						</Anchors>
@@ -93,37 +93,71 @@
 						</Anchors>
 					</Button>
 					<Button name="$parentColumnHeaderMember" inherits="GDColumnHeaderTemplate" text="Member">
-						<Size><AbsDimension x="140" y="19"/></Size>
+						<Size><AbsDimension x="110" y="19"/></Size>
 						<Anchors>
 								<Anchor point="LEFT" relativeTo="$parentColumnHeaderClass" relativePoint="RIGHT"/>
 						</Anchors>
 					</Button>
 					<Button name="$parentColumnHeaderRole" inherits="GDColumnHeaderTemplate" text="Role">
-						<Size><AbsDimension x="110" y="19"/></Size>
+						<Size><AbsDimension x="80" y="19"/></Size>
 						<Anchors>
 								<Anchor point="LEFT" relativeTo="$parentColumnHeaderMember" relativePoint="RIGHT"/>
 						</Anchors>
 					</Button>
 					<Button name="$parentColumnHeaderGoldCut" inherits="GDColumnHeaderTemplate" text="Gold Cut">
-						<Size><AbsDimension x="150" y="19"/></Size>
+						<Size><AbsDimension x="100" y="19"/></Size>
 						<Anchors>
 								<Anchor point="LEFT" relativeTo="$parentColumnHeaderRole" relativePoint="RIGHT"/>
 						</Anchors>
 					</Button>
 					<!-- Raid Roster Table Rows Examples -->
-					<Button name="$parentRaidRosterRow1" inherits="GDRaidRosterRowTemplate">
+					<ScrollFrame name="$parentScrollFrame" inherits="UIPanelScrollFrameTemplate">
+						<Size><AbsDimension y="200"/></Size>
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="$parentColumnHeaderId" relativePoint="BOTTOMLEFT"/>
+							<Anchor point="TOPRIGHT" relativeTo="$parentColumnHeaderGoldCut" relativePoint="BOTTOMRIGHT"/>
+						</Anchors>
+						<ScrollChild>
+							<Frame name="$parentScrollChild" setAllPoints="$parent">
+								<size><AbsDimension x="370" y="300"/></size>
+								<Anchors>
+									<Anchor point="TOPLEFT"/>
+								</Anchors>
+								<Frames>
+									<Button name="$parentRow0" inherits="GDRaidRosterRowTemplate">
+										<Anchors>
+											<Anchor point="TOPLEFT"/>
+										</Anchors>
+									</Button>
+									<Button name="$parentRow1" inherits="GDRaidRosterRowTemplate">
+										<Anchors>
+											<Anchor point="TOPLEFT" relativeTo="$parentRow0" relativePoint="BOTTOMLEFT"/>
+										</Anchors>
+									</Button>
+									<Button name="$parentRow2" inherits="GDRaidRosterRowTemplate">
+										<Anchors>
+											<Anchor point="TOPLEFT" relativeTo="$parentRow1" relativePoint="BOTTOMLEFT"/>
+										</Anchors>
+									</Button>
+									<Button name="$parentRow3" inherits="GDRaidRosterRowTemplate">
+										<Anchors>
+											<Anchor point="TOPLEFT" relativeTo="$parentRow2" relativePoint="BOTTOMLEFT"/>
+										</Anchors>
+									</Button>
+								</Frames>
+							</Frame>
+						</ScrollChild>
+					</ScrollFrame>
+					<Button name="$parentRewardBtn" inherits="GDButtonTemplate" text="Reward +">
+						<Size><AbsDimension x="85" y="25"/></Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parentColumnHeaderGoldCut" relativePoint="TOPRIGHT" x="25" y="0"/>
 						</Anchors>
 					</Button>
-					<Button name="$parentRaidRosterRow2" inherits="GDRaidRosterRowTemplate">
+					<Button name="$parentMinusBtn" inherits="GDButtonTemplate" text="Minus -">
+						<Size><AbsDimension x="85" y="25"/></Size>
 						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="$parentRaidRosterRow1" relativePoint="BOTTOMLEFT"/>
-						</Anchors>
-					</Button>
-					<Button name="$parentRaidRosterRow3" inherits="GDRaidRosterRowTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="$parentRaidRosterRow2" relativePoint="BOTTOMLEFT"/>
+							<Anchor point="TOP" relativeTo="$parentRewardBtn" relativePoint="BOTTOM" y="-5"/>
 						</Anchors>
 					</Button>
 				</Frames>
@@ -215,12 +249,8 @@
 		<DisabledFont style="GameFontDisableSmall" />
 		<HighlightFont style="GameFontHighlightSmall" />
 		<Anchors>
-			<Anchor point="LEFT">
-				<Offset><AbsDimension x="5" y="0" /></Offset>
-			</Anchor>
-			<Anchor point="RIGHT">
-				<Offset><AbsDimension x="-5" y="0" /></Offset>
-			</Anchor>
+			<Anchor point="LEFT"/>
+			<Anchor point="RIGHT"/>
 		</Anchors>
 		<Layers>
 			<Layer level="BACKGROUND">
@@ -245,7 +275,6 @@
 							<Offset><AbsDimension x="8" y="-1" /></Offset>
 						</Anchor>
 					</Anchors>
-					<backgroundColor r="1" g="0" b="0" a="1" />
 				</FontString>
 				<FontString name="$parentClass" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="MIDDLE" text="Class">
 					<Size><AbsDimension x="50" y="18" /></Size>
@@ -254,19 +283,19 @@
 					</Anchors>
 				</FontString>
 				<FontString name="$parentMember" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="MIDDLE" text="Member">
-					<Size><AbsDimension x="140" y="18" /></Size>
+					<Size><AbsDimension x="110" y="18" /></Size>
 					<Anchors>
 						<Anchor point="TOPLEFT" relativeTo="$parentClass" relativePoint="TOPRIGHT"/>
 					</Anchors>
 				</FontString>
 				<FontString name="$parentRole" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="MIDDLE" text="Role">
-					<Size><AbsDimension x="110" y="18" /></Size>
+					<Size><AbsDimension x="80" y="18" /></Size>
 					<Anchors>
 						<Anchor point="TOPLEFT" relativeTo="$parentMember" relativePoint="TOPRIGHT"/>
 					</Anchors>
 				</FontString>
 				<FontString name="$parentGoldCut" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="MIDDLE" text="Gold Cut">
-					<Size><AbsDimension x="150" y="18" /></Size>
+					<Size><AbsDimension x="100" y="18" /></Size>
 					<Anchors>
 						<Anchor point="TOPLEFT" relativeTo="$parentRole" relativePoint="TOPRIGHT"/>
 					</Anchors>
@@ -281,5 +310,59 @@
 			<Color r="1" g="0.8" b="0" a="0.1" />
 		</HighlightTexture>
 		<Scripts><OnClick></OnClick></Scripts>
+	</Button>
+
+	<!-- Default buttons template -->
+	<Button name="GDButtonTemplate" virtual="true">
+		<Size><AbsDimension x="25" y="25" /></Size>
+		<NormalFont style="GameFontNormalSmall" />
+		<DisabledFont style="GameFontDisableSmall" />
+		<HighlightFont style="GameFontHighlightSmall" />
+		<ButtonText name="$parentText">
+			<Anchors>
+				<Anchor point="LEFT">
+					<Offset><AbsDimension x="5" y="0" /></Offset>
+				</Anchor>
+				<Anchor point="RIGHT">
+					<Offset><AbsDimension x="-5" y="0" /></Offset>
+				</Anchor>
+			</Anchors>
+		</ButtonText>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentLeft" file="Interface\Buttons\UI-Panel-Button-Up">
+					<Size><AbsDimension x="12" /></Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" />
+						<Anchor point="BOTTOMLEFT" />
+					</Anchors>
+					<TexCoords left="0" right="0.09374" top="0" bottom="0.6875" />
+				</Texture>
+				<Texture name="$parentRight" file="Interface\Buttons\UI-Panel-Button-Up">
+					<Size><AbsDimension x="12" /></Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" />
+						<Anchor point="BOTTOMRIGHT" />
+					</Anchors>
+					<TexCoords left="0.53125" right="0.625" top="0" bottom="0.6875" />
+				</Texture>
+				<Texture name="$parentMiddle" file="Interface\Buttons\UI-Panel-Button-Up">
+					<Size><AbsDimension x="12" /></Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset><AbsDimension x="12" y="0" /></Offset>
+						</Anchor>
+						<Anchor point="BOTTOMRIGHT">
+							<Offset><AbsDimension x="-12" y="0" /></Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.09375" right="0.53125" top="0" bottom="0.6875" />
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture inherits="UIPanelButtonHighlightTexture" mod="ADD" />
+		<PushedTexture inherits="UIPanelButtonPushedTexture" mod="ADD" />
+		<DisabledTexture inherits="UIPanelButtonDisabledTexture" />
+		<Scripts><OnLoad>self:RegisterForClicks("AnyUp")</OnLoad></Scripts>
 	</Button>
 </Ui>
