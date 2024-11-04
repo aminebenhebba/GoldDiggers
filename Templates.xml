@@ -3,7 +3,7 @@
 
 	<!-- Main Frame -->
     <Frame name="GDRaidToolsFrame" inherits="UIPanelDialogTemplate" parent="UIParent" movable="true" frameStrata="MEDIUM" toplevel="true" hidden="true" clampedToScreen="true" virtual="true">
-        <Size><AbsDimension x="800" y="400" /></Size>
+        <Size><AbsDimension x="892" y="400" /></Size>
 		<Anchors>
 			<Anchor point="CENTER">
 				<Offset><AbsDimension x="0" y="0" /></Offset>
@@ -25,7 +25,7 @@
 		<Frames>
 			<!-- Left Section -->
 			<Frame name="$parentSessions">
-				<Size x="295" y="375"/>
+				<Size x="390" y="375"/>
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="7" y="-22"/>
 				</Anchors>
@@ -43,6 +43,90 @@
 						</FontString>
 					</Layer>
 				</Layers>
+				<Frames>
+					<!-- Session Button -->
+					<Button name="$parentOpenSessionBtn" inherits="GDButtonTemplate" text="Open Session">
+						<Size><AbsDimension x="100" y="25"/></Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" x="10" y="-10"/>
+						</Anchors>
+					</Button>
+					<Button name="$parentCloseSessionBtn" inherits="GDButtonTemplate" text="Close Session">
+						<Size><AbsDimension x="100" y="25"/></Size>
+						<Anchors>
+							<Anchor point="TOPRIGHT" x="-10" y="-10"/>
+						</Anchors>
+					</Button>
+					<!-- Sessions Table Headers -->
+					<Button name="$parentColumnHeaderId" inherits="GDColumnHeaderTemplate" text="#">
+						<Size><AbsDimension x="30" y="19"/></Size>
+						<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="$parent" x="10" y="-40"/>
+						</Anchors>
+					</Button>
+					<Button name="$parentColumnHeaderDate" inherits="GDColumnHeaderTemplate" text="Date">
+						<Size><AbsDimension x="100" y="19"/></Size>
+						<Anchors>
+								<Anchor point="LEFT" relativeTo="$parentColumnHeaderId" relativePoint="RIGHT"/>
+						</Anchors>
+					</Button>
+					<Button name="$parentColumnHeaderRaid" inherits="GDColumnHeaderTemplate" text="Raid">
+						<Size><AbsDimension x="115" y="19"/></Size>
+						<Anchors>
+								<Anchor point="LEFT" relativeTo="$parentColumnHeaderDate" relativePoint="RIGHT"/>
+						</Anchors>
+					</Button>
+					<Button name="$parentColumnHeaderGold" inherits="GDColumnHeaderTemplate" text="Gold">
+						<Size><AbsDimension x="55" y="19"/></Size>
+						<Anchors>
+								<Anchor point="LEFT" relativeTo="$parentColumnHeaderRaid" relativePoint="RIGHT"/>
+						</Anchors>
+					</Button>
+					<Button name="$parentColumnHeaderClient" inherits="GDColumnHeaderTemplate" text="Client">
+						<Size><AbsDimension x="45" y="19"/></Size>
+						<Anchors>
+								<Anchor point="LEFT" relativeTo="$parentColumnHeaderGold" relativePoint="RIGHT"/>
+						</Anchors>
+					</Button>
+					<!-- Sessions Table Rows Examples -->
+					<ScrollFrame name="$parentScrollFrame" inherits="UIPanelScrollFrameTemplate">
+						<Size><AbsDimension y="100"/></Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parentColumnHeaderId" relativePoint="BOTTOMLEFT"/>
+							<Anchor point="TOPRIGHT" relativeTo="$parentColumnHeaderClient" relativePoint="BOTTOMRIGHT"/>
+						</Anchors>
+						<ScrollChild>
+							<Frame name="$parentScrollChild" setAllPoints="$parent">
+								<size><AbsDimension x="370" y="150"/></size>
+								<Anchors>
+									<Anchor point="TOPLEFT"/>
+								</Anchors>
+								<Frames>
+									<Button name="$parentRow0" inherits="GDSessionRowTemplate">
+										<Anchors>
+											<Anchor point="TOPLEFT"/>
+										</Anchors>
+									</Button>
+									<Button name="$parentRow1" inherits="GDSessionRowTemplate">
+										<Anchors>
+											<Anchor point="TOPLEFT" relativeTo="$parentRow0" relativePoint="BOTTOMLEFT"/>
+										</Anchors>
+									</Button>
+									<Button name="$parentRow2" inherits="GDSessionRowTemplate">
+										<Anchors>
+											<Anchor point="TOPLEFT" relativeTo="$parentRow1" relativePoint="BOTTOMLEFT"/>
+										</Anchors>
+									</Button>
+									<Button name="$parentRow3" inherits="GDSessionRowTemplate">
+										<Anchors>
+											<Anchor point="TOPLEFT" relativeTo="$parentRow2" relativePoint="BOTTOMLEFT"/>
+										</Anchors>
+									</Button>
+								</Frames>
+							</Frame>
+						</ScrollChild>
+					</ScrollFrame>
+				</Frames>
 			</Frame>
 
 			<!-- Right Section -->
@@ -298,6 +382,76 @@
 					<Size><AbsDimension x="100" y="18" /></Size>
 					<Anchors>
 						<Anchor point="TOPLEFT" relativeTo="$parentRole" relativePoint="TOPRIGHT"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<HighlightTexture>
+			<Anchors>
+				<Anchor point="TOPLEFT" />
+				<Anchor point="BOTTOMRIGHT" />
+			</Anchors>
+			<Color r="1" g="0.8" b="0" a="0.1" />
+		</HighlightTexture>
+		<Scripts><OnClick></OnClick></Scripts>
+	</Button>
+
+	<!-- Sessions Row Template -->
+	<Button name="GDSessionRowTemplate" virtual="true">
+		<Size><AbsDimension y="20" /></Size>
+		<NormalFont style="GameFontNormalSmall" />
+		<DisabledFont style="GameFontDisableSmall" />
+		<HighlightFont style="GameFontHighlightSmall" />
+		<Anchors>
+			<Anchor point="LEFT"/>
+			<Anchor point="RIGHT"/>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\AuctionFrame\UI-AuctionItemNameFrame">
+					<Size><AbsDimension x="10" y="22" /></Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset><AbsDimension x="0" y="0" /></Offset>
+						</Anchor>
+						<Anchor point="BOTTOMRIGHT">
+							<Offset><AbsDimension x="0" y="-2" /></Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords top="0" right="0.75" bottom="0.75" left="0.078125" />
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<FontString name="$parentID" font="GameFontNormalSmall" justifyH="LEFT" justifyV="MIDDLE" text="ID">
+					<Size><AbsDimension x="30" y="18" /></Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset><AbsDimension x="8" y="-1" /></Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentDate" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="MIDDLE" text="01/01/2024 17:00">
+					<Size><AbsDimension x="100" y="18" /></Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentID" relativePoint="TOPRIGHT"/>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentRaid" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="MIDDLE" text="ICC25HC Boost Run">
+					<Size><AbsDimension x="115" y="18" /></Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentDate" relativePoint="TOPRIGHT"/>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentGold" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="MIDDLE" text="150.000">
+					<Size><AbsDimension x="55" y="18" /></Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentRaid" relativePoint="TOPRIGHT"/>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentClient" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="MIDDLE" text="2">
+					<Size><AbsDimension x="45" y="18" /></Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentGold" relativePoint="TOPRIGHT"/>
 					</Anchors>
 				</FontString>
 			</Layer>
