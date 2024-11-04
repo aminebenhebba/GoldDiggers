@@ -3,7 +3,7 @@
 
 	<!-- Main Frame -->
     <Frame name="GDRaidToolsFrame" inherits="UIPanelDialogTemplate" parent="UIParent" movable="true" frameStrata="MEDIUM" toplevel="true" hidden="true" clampedToScreen="true" virtual="true">
-        <Size><AbsDimension x="892" y="400" /></Size>
+        <Size><AbsDimension x="792" y="400" /></Size>
 		<Anchors>
 			<Anchor point="CENTER">
 				<Offset><AbsDimension x="0" y="0" /></Offset>
@@ -23,7 +23,7 @@
 		</Layers>
 
 		<Frames>
-			<!-- Left Section -->
+			<!-- Sessions Section -->
 			<Frame name="$parentSessions">
 				<Size x="390" y="375"/>
 				<Anchors>
@@ -34,15 +34,6 @@
                 		<AbsInset left="5" right="5" top="5" bottom="5"/>
             		</BackgroundInsets>
         		</Backdrop>
-				<Layers>
-					<Layer level="ARTWORK">
-						<FontString inherits="GameFontNormalSmall" text="Left Side Content" justifyH="CENTER">
-							<Anchors>
-								<Anchor point="TOP"/>
-							</Anchors>
-						</FontString>
-					</Layer>
-				</Layers>
 				<Frames>
 					<!-- Session Button -->
 					<Button name="$parentOpenSessionBtn" inherits="GDButtonTemplate" text="Open Session">
@@ -129,9 +120,9 @@
 				</Frames>
 			</Frame>
 
-			<!-- Right Section -->
+			<!-- Raid Roster Section -->
 			<Frame name="$parentRaidRoster">
-				<Size x="500" y="375"/>
+				<Size x="400" y="375"/>
 				<Anchors>
 					<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-2" y="-22"/>
 				</Anchors>
@@ -142,11 +133,6 @@
         		</Backdrop>
 				<Layers>
 					<Layer level="ARTWORK">
-						<FontString inherits="GameFontNormalSmall" text="Right Side Content" justifyH="CENTER">
-							<Anchors>
-								<Anchor point="TOP"/>
-							</Anchors>
-						</FontString>
 						<!-- Raid Roster Header -->
 						<FontString name="$parentHeader" inherits="GameFontNormal" text="Raid Roster">
 							<Anchors>
@@ -171,25 +157,25 @@
 						</Anchors>
 					</Button>
 					<Button name="$parentColumnHeaderClass" inherits="GDColumnHeaderTemplate" text="Class">
-						<Size><AbsDimension x="50" y="19"/></Size>
+						<Size><AbsDimension x="40" y="19"/></Size>
 						<Anchors>
 								<Anchor point="LEFT" relativeTo="$parentColumnHeaderId" relativePoint="RIGHT"/>
 						</Anchors>
 					</Button>
 					<Button name="$parentColumnHeaderMember" inherits="GDColumnHeaderTemplate" text="Member">
-						<Size><AbsDimension x="110" y="19"/></Size>
+						<Size><AbsDimension x="90" y="19"/></Size>
 						<Anchors>
 								<Anchor point="LEFT" relativeTo="$parentColumnHeaderClass" relativePoint="RIGHT"/>
 						</Anchors>
 					</Button>
 					<Button name="$parentColumnHeaderRole" inherits="GDColumnHeaderTemplate" text="Role">
-						<Size><AbsDimension x="80" y="19"/></Size>
+						<Size><AbsDimension x="60" y="19"/></Size>
 						<Anchors>
 								<Anchor point="LEFT" relativeTo="$parentColumnHeaderMember" relativePoint="RIGHT"/>
 						</Anchors>
 					</Button>
-					<Button name="$parentColumnHeaderGoldCut" inherits="GDColumnHeaderTemplate" text="Gold Cut">
-						<Size><AbsDimension x="100" y="19"/></Size>
+					<Button name="$parentColumnHeaderGoldCut" inherits="GDColumnHeaderTemplate" text="Cut">
+						<Size><AbsDimension x="50" y="19"/></Size>
 						<Anchors>
 								<Anchor point="LEFT" relativeTo="$parentColumnHeaderRole" relativePoint="RIGHT"/>
 						</Anchors>
@@ -360,26 +346,26 @@
 						</Anchor>
 					</Anchors>
 				</FontString>
-				<FontString name="$parentClass" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="MIDDLE" text="Class">
-					<Size><AbsDimension x="50" y="18" /></Size>
+				<FontString name="$parentClass" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="MIDDLE" text="Warrior">
+					<Size><AbsDimension x="40" y="18" /></Size>
 					<Anchors>
 						<Anchor point="TOPLEFT" relativeTo="$parentID" relativePoint="TOPRIGHT"/>
 					</Anchors>
 				</FontString>
-				<FontString name="$parentMember" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="MIDDLE" text="Member">
-					<Size><AbsDimension x="110" y="18" /></Size>
+				<FontString name="$parentMember" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="MIDDLE" text="Thoric">
+					<Size><AbsDimension x="90" y="18" /></Size>
 					<Anchors>
 						<Anchor point="TOPLEFT" relativeTo="$parentClass" relativePoint="TOPRIGHT"/>
 					</Anchors>
 				</FontString>
-				<FontString name="$parentRole" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="MIDDLE" text="Role">
-					<Size><AbsDimension x="80" y="18" /></Size>
+				<FontString name="$parentRole" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="MIDDLE" text="Booster">
+					<Size><AbsDimension x="60" y="18" /></Size>
 					<Anchors>
 						<Anchor point="TOPLEFT" relativeTo="$parentMember" relativePoint="TOPRIGHT"/>
 					</Anchors>
 				</FontString>
-				<FontString name="$parentGoldCut" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="MIDDLE" text="Gold Cut">
-					<Size><AbsDimension x="100" y="18" /></Size>
+				<FontString name="$parentGoldCut" inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="MIDDLE" text="15.000">
+					<Size><AbsDimension x="50" y="18" /></Size>
 					<Anchors>
 						<Anchor point="TOPLEFT" relativeTo="$parentRole" relativePoint="TOPRIGHT"/>
 					</Anchors>
