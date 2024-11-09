@@ -1,9 +1,13 @@
 GoldDiggers = LibStub("AceAddon-3.0"):NewAddon("GoldDiggers", "AceEvent-3.0" )
 
 GoldDiggers.Config = {}
+GoldDiggers.Helpers = {}
 
 local Config = GoldDiggers.Config
-local UIConfig
+local Helpers = GoldDiggers.Helpers
+
+-- AddOn frames:
+local mainUI, sessionUI
 
 
 --------------------------------------------------------------------------
@@ -34,6 +38,11 @@ local classColor = {
 --------------------------------------------------------------------------
 -- Database
 --------------------------------------------------------------------------
+
+-- SavedVariables:
+GD_Sessions       = GD_Sessions or {}
+GD_CurrentSession = GD_CurrentSession or nil
+
 local db = {
     {
         date = "2024.06.07-19:00",
@@ -59,17 +68,18 @@ local db = {
     }
 }
 
---------------------------------------------------------------------------
--- Helpers
---------------------------------------------------------------------------
 local default = {
-    theme = {
-        r = 0, --0
-        g = 0.8, --204
-        b = 1, --255
-        hex = "00ccff"
-    }
+theme = {
+    r = 0, --0
+    g = 0.8, --204
+    b = 1, --255
+    hex = "00ccff"
 }
+}
+
+--------------------------------------------------------------------------
+-- Logging functions
+--------------------------------------------------------------------------
 
 function Config:GetThemeColor()
     local color = default.theme
@@ -85,6 +95,7 @@ end
 --------------------------------------------------------------------------
 -- Ace3.0 Initialization
 --------------------------------------------------------------------------
+
 function GoldDiggers:OnInitialize()
     GoldDiggers:init()
     GoldDiggers:Print("Welcome back", UnitName("player") .. "! type |cff00cc66/gd|r for help.")
@@ -101,7 +112,7 @@ end
 --------------------------------------------------------------------------
 
 function Config:Toggle()
-    local menu = UIConfig or Config:CreateMenu()
+    local menu = Config:OpenMainMenu()
     if menu:IsShown() then
         menu:Hide()
     else
@@ -109,16 +120,52 @@ function Config:Toggle()
     end
 end
 
---------------------------------------------------------------------------
--- Slash Commands
---------------------------------------------------------------------------
-function Config:CreateMenu()
-    UIConfig = CreateFrame("Frame", "GoldDiggersMenu", UIParent, "GDRaidToolsFrame")
-    UIConfig:SetPoint("CENTER", UIParent, "CENTER")
-    UIConfig:Hide()
-    return UIConfig
+function Config:OpenMainMenu()
+    mainUI = mainUI or CreateFrame("Frame", "GoldDiggersMenu", UIParent, "GDRaidToolsFrame")
+    mainUI:SetPoint("CENTER", UIParent, "CENTER")
+
+    -- TODO: we still need to check if the current session is open or not
+    -- this is just a basic implementation
+    local menuName = mainUI:GetName()
+    _G[menuName.."SessionsOpenSessionBtn"]:Enable()
+    _G[menuName.."SessionsCloseSessionBtn"]:Disable()
+
+    mainUI:Hide()
+    return mainUI
 end
 
+--------------------------------------------------------------------------
+-- Core
+--------------------------------------------------------------------------
+
+--- Open a session form to create a new session
+function GoldDiggers:OpenSessionMenu()
+    sessionUI = sessionUI or CreateFrame("Frame", "GoldDiggersSessionMenu", mainUI, "GDCreateSessionFrame")
+    sessionUI:SetPoint("CENTER", UIParent, "CENTER")
+
+    local sessionName = sessionUI:GetName()
+    _G[sessionName.."Raid"]:SetText("")
+    _G[sessionName.."Client"]:SetText("1")
+    _G[sessionName.."Gold"]:SetText("0")
+
+    sessionUI:Show()
+end
+
+
+--- Create a new session for the current raid
+function GoldDiggers:CreateSession()
+    local sessionName = sessionUI:GetName()
+    local raid = _G[sessionName.."Raid"]:GetText()
+    local client = _G[sessionName.."Client"]:GetText()
+    local gold = _G[sessionName.."Gold"]:GetText()
+    local sessionTime = Helpers.GetCurrentTime()
+
+    local menuName = mainUI:GetName()
+    _G[menuName.."SessionsOpenSessionBtn"]:Disable()
+    _G[menuName.."SessionsCloseSessionBtn"]:Enable()
+
+    GoldDiggers:Print(sessionTime .. ": Creating Session for " .. raid .. " with " .. client .. " Clients for " .. gold .." g.")
+end
 
 --------------------------------------------------------------------------
 -- Slash Commands

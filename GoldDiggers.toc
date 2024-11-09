@@ -3,7 +3,13 @@
 ## Notes: A Gold Manager for raid boosters from |cff996019warmane|r-Icecrown.
 ## Author: Thoric
 ## Version: 0.1b
-# DefaultState: enabled
+## X-Category: Raid
+## X-License: GPLv3
+## DefaultState: enabled
+## SavedVariables: GD_Sessions, GD_CurrentSession
 
-embeds.xml
+# Templates File:
 Templates.xml
+
+# Core Files:
+embeds.xml

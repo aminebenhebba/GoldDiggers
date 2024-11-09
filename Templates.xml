@@ -41,6 +41,9 @@
 						<Anchors>
 							<Anchor point="TOPLEFT" x="10" y="-10"/>
 						</Anchors>
+						<Scripts>
+							<OnClick> GoldDiggers:OpenSessionMenu()	</OnClick>
+						</Scripts>
 					</Button>
 					<Button name="$parentCloseSessionBtn" inherits="GDButtonTemplate" text="Close Session">
 						<Size><AbsDimension x="100" y="25"/></Size>
@@ -240,9 +243,123 @@
 		</Scripts>
     </Frame>
 
+	<!-- Create Session Frame -->
+    <Frame name="GDCreateSessionFrame" inherits="UIPanelDialogTemplate" parent="UIParent" enableMouse="true" movable="true" frameStrata="MEDIUM" toplevel="true" hidden="true" clampedToScreen="true" virtual="true">
+        <Size><AbsDimension x="250" y="170" /></Size>
+		<Anchors>
+			<Anchor point="CENTER">
+				<Offset><AbsDimension x="0" y="0" /></Offset>
+			</Anchor>
+		</Anchors>
+
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString inherits="GameFontNormalSmall" name="$parentTitle" text="|cff00cc66 GD :|r Create Session">
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentTitleBG" relativePoint="LEFT">
+							<Offset><AbsDimension x="5" y="1" /></Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString inherits="GameFontNormal" name="$parentRaidLabel" text="Raid:">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset><AbsDimension x="20" y="-40" /></Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString inherits="GameFontNormal" name="$parentClientLabel" text="Client:">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset><AbsDimension x="20" y="-85" /></Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString inherits="GameFontNormal" name="$parentGoldLabel" text="Gold:">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset><AbsDimension x="90" y="-85" /></Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<!-- Create Session Form -->
+			<EditBox name="$parentRaid" inherits="GDEditBoxTemplate">
+				<Size><AbsDimension x="210" y="25"/></Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentRaidLabel" relativePoint="BOTTOMLEFT" x="5" y="-2"/>
+				</Anchors>
+			</EditBox>
+			<EditBox name="$parentClient" inherits="GDDigitEditBoxTemplate" text="1">
+				<Size><AbsDimension x="50" y="25"/></Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentClientLabel" relativePoint="BOTTOMLEFT" x="5" y="-2"/>
+				</Anchors>
+			</EditBox>
+			<EditBox name="$parentGold" inherits="GDGoldEditBoxTemplate" text="0">
+				<Size><AbsDimension x="70" y="25"/></Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentGoldLabel" relativePoint="BOTTOMLEFT" x="5" y="-2"/>
+				</Anchors>
+			</EditBox>
+
+			<Button name="$parentCancelBtn" inherits="GDButtonTemplate" text="Cancel">
+				<Size><AbsDimension x="80" y="25"/></Size>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT" x="12" y="12"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>self:GetParent():Hide()</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$parentCreateBtn" inherits="GDButtonTemplate" text="Create">
+				<Size><AbsDimension x="80" y="25"/></Size>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-10" y="12"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						GoldDiggers:CreateSession()
+						self:GetParent():Hide()
+					</OnClick>
+				</Scripts>
+			</Button>
+		</Frames>
+
+		<Scripts>
+			<OnDragStart>self:StartMoving()</OnDragStart>
+			<OnDragStop>self:StopMovingOrSizing()</OnDragStop>
+		</Scripts>
+    </Frame>
+
+	<!-- EditBox Template -->
+    <EditBox name="GDEditBoxTemplate" inherits="InputBoxTemplate" autoFocus="false" virtual="true">
+        <FontString inherits="GameFontHighlight" />
+        <Scripts><OnEscapePressed>self:ClearFocus()</OnEscapePressed></Scripts>
+    </EditBox>
+
+	<!-- Digit EditBox Template -->
+    <EditBox name="GDDigitEditBoxTemplate" inherits="GDEditBoxTemplate" autoFocus="false" numeric="true" virtual="true">
+    </EditBox>
+
+	<!-- Gold EdtiBox Template -->
+	<EditBox name="GDGoldEditBoxTemplate" inherits="GDEditBoxTemplate" autoFocus="false" maxLetters="6" numeric="true" virtual="true">
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture file="Interface\MoneyFrame\UI-GoldIcon" layer="ARTWORK">
+					<Size><AbsDimension x="16" y="16" /></Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT" x="3"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+	</EditBox>
+
 	<!-- Filter EdtiBox Template -->
-	<EditBox name="GDEditBoxFilterTemplate" inherits="InputBoxTemplate" autoFocus="false" virtual="true">
-		<FontString inherits="GameFontHighlight" />
+	<EditBox name="GDEditBoxFilterTemplate" inherits="GDEditBoxTemplate" autoFocus="false" virtual="true">
 		<Layers>
 			<Layer level="BACKGROUND">
 				<FontString parentKey="SearchPlaceHolder" inherits="GameFontNormalSmall" text="Search ...">
@@ -260,7 +377,6 @@
 			</Layer>
 		</Layers>
 		<Scripts>
-			<OnEscapePressed>self:ClearFocus()</OnEscapePressed>
 			<OnEditFocusGained>self.SearchPlaceHolder:Hide()</OnEditFocusGained>
 			<OnEditFocusLost>if self:GetText()=="" then	self.SearchPlaceHolder:Show() end</OnEditFocusLost>
 		</Scripts>
