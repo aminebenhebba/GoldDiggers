@@ -238,8 +238,8 @@
 		</Frames>
 
 		<Scripts>
-			<OnDragStart>self:StartMoving()</OnDragStart>
-			<OnDragStop>self:StopMovingOrSizing()</OnDragStop>
+			<OnMouseDown>self:StartMoving()</OnMouseDown>
+			<OnMouseUp>self:StopMovingOrSizing()</OnMouseUp>
 		</Scripts>
     </Frame>
 
@@ -329,8 +329,8 @@
 		</Frames>
 
 		<Scripts>
-			<OnDragStart>self:StartMoving()</OnDragStart>
-			<OnDragStop>self:StopMovingOrSizing()</OnDragStop>
+			<OnMouseDown>self:StartMoving()</OnMouseDown>
+			<OnMouseUp>self:StopMovingOrSizing()</OnMouseUp>
 		</Scripts>
     </Frame>
 
